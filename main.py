@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
-# from bcrypt import hashpw, gensalt, checkpw
+from bcrypt import hashpw, gensalt, checkpw
 # from email_module import Email
 # from fastapi import BackgroundTasks
 # import config
