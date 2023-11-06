@@ -300,20 +300,20 @@ def fetch_doctor_by_email(cnxn, email):
 #     else:
 #         return {"success": False, "message": "Invalid email or password."}
 
-def add_hospital_doctor(cnxn, hospital_doctor: HospitalDoctor):
-    cursor = cnxn.cursor()
+# def add_hospital_doctor(cnxn, hospital_doctor: HospitalDoctor):
+#     cursor = cnxn.cursor()
     
-    # Prepare the SQL query to insert the hospital-doctor association
-    sql = "INSERT INTO HospitalDoctors (HospitalID, DoctorID) VALUES (?, ?);"
+#     # Prepare the SQL query to insert the hospital-doctor association
+#     sql = "INSERT INTO HospitalDoctors (HospitalID, DoctorID) VALUES (?, ?);"
     
-    # Execute the query with the values from the hospital_doctor model
-    cursor.execute(sql, (hospital_doctor.HospitalID, hospital_doctor.DoctorID))
+#     # Execute the query with the values from the hospital_doctor model
+#     cursor.execute(sql, (hospital_doctor.HospitalID, hospital_doctor.DoctorID))
     
-    # Commit the changes to the database
-    cnxn.commit()
+#     # Commit the changes to the database
+#     cnxn.commit()
     
-    # Close the cursor
-    cursor.close()
+#     # Close the cursor
+#     cursor.close()
 
 # def add_hospital_doctor_by_regnumber(cnxn, hospital_doctor_by_regnumber: HospitalDoctorByRegNumber):
 #     cursor = cnxn.cursor()
