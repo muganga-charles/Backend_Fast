@@ -315,20 +315,20 @@ def add_hospital_doctor(cnxn, hospital_doctor: HospitalDoctor):
     # Close the cursor
     cursor.close()
 
-def add_hospital_doctor_by_regnumber(cnxn, hospital_doctor_by_regnumber: HospitalDoctorByRegNumber):
-    cursor = cnxn.cursor()
+# def add_hospital_doctor_by_regnumber(cnxn, hospital_doctor_by_regnumber: HospitalDoctorByRegNumber):
+#     cursor = cnxn.cursor()
     
-    # First, find the HospitalID using the RegNumber
-    cursor.execute("SELECT HospitalID FROM Hospitals WHERE RegNumber = ?", (hospital_doctor_by_regnumber.RegNumber,))
-    hospital_id_row = cursor.fetchone()
-    if hospital_id_row is None:
-        raise ValueError("No hospital found with the given RegNumber")
-    hospital_id = hospital_id_row[0]
+#     # First, find the HospitalID using the RegNumber
+#     cursor.execute("SELECT HospitalID FROM Hospitals WHERE RegNumber = ?", (hospital_doctor_by_regnumber.RegNumber,))
+#     hospital_id_row = cursor.fetchone()
+#     if hospital_id_row is None:
+#         raise ValueError("No hospital found with the given RegNumber")
+#     hospital_id = hospital_id_row[0]
 
-    # Now, insert the hospital-doctor association using the found HospitalID
-    sql = "INSERT INTO HospitalDoctors (HospitalID, DoctorID) VALUES (?, ?);"
-    cursor.execute(sql, (hospital_id, hospital_doctor_by_regnumber.DoctorID))
+#     # Now, insert the hospital-doctor association using the found HospitalID
+#     sql = "INSERT INTO HospitalDoctors (HospitalID, DoctorID) VALUES (?, ?);"
+#     cursor.execute(sql, (hospital_id, hospital_doctor_by_regnumber.DoctorID))
 
-    # Commit the changes to the database
-    cnxn.commit()
-    cursor.close()
+#     # Commit the changes to the database
+#     cnxn.commit()
+#     cursor.close()
