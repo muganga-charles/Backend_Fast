@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, validator
 from passlib.context import CryptContext
-from bcrypt import checkpw
+# from bcrypt import checkpw
 from typing import Optional
 import pandas as pd
 

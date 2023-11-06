@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from bcrypt import hashpw, gensalt, checkpw
+# from bcrypt import hashpw, gensalt, checkpw
 from email_module import Email
 from fastapi import BackgroundTasks
 import config
@@ -63,8 +63,8 @@ async def create_patient(patient: Patient):
         raise HTTPException(status_code=400, detail="User already exists.")
 
     salt_rounds = 12
-    hashed_password = hashpw(patient.password.encode("utf-8"), gensalt(salt_rounds))
-
+    # hashed_password = hashpw(patient.password.encode("utf-8"), gensalt(salt_rounds))
+    hashed_password = ""
     # Create a new patient with the hashed password
     patient.password = hashed_password
 
@@ -90,7 +90,8 @@ async def login(login_data: LoginData):
     patient = py_functions.fetch_patient_by_email(cnxn, login_data.email)
     # print(patient['password'])
     # If the patient doesn't exist or passwords don't match, return an error
-    if not patient or not checkpw(
+    if not patient(
+    # if not patient or not checkpw(
         login_data.password.encode("utf-8"), patient["password"].encode("utf-8")
     ):
         raise HTTPException(status_code=401, detail="Invalid email or password.")
@@ -134,7 +135,8 @@ async def create_doctor(doctor: Doctor):
         raise HTTPException(status_code=400, detail="doctor already exists.")
 
     salt_rounds = 12
-    hashed_password = hashpw(doctor.Password.encode("utf-8"), gensalt(salt_rounds))
+    hashed_password = ""
+    # hashed_password = hashpw(doctor.Password.encode("utf-8"), gensalt(salt_rounds))
     doctor.Password = hashed_password
 
     py_functions.add_doctor(cnxn, doctor)
@@ -159,7 +161,8 @@ async def doctor_login(login_data: DoctorLoginData):
     doctor = py_functions.fetch_doctor_by_email(cnxn, login_data.Email)
     # print(patient['password'])
     # If the patient doesn't exist or passwords don't match, return an error
-    if not doctor or not checkpw(
+    if not doctor(
+    # if not doctor or not checkpw(
         login_data.Password.encode("utf-8"), doctor["Password"].encode("utf-8")
     ):
         raise HTTPException(status_code=401, detail="Invalid email or password.")
