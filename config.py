@@ -1,10 +1,10 @@
 # import pypyodbc
 DRIVER_NAME = 'SQL Server'
-SERVER_NAME = 'DESKTOP-SOLD483\SQLEXPRESS'
-DATABASE_NAME = 'SickleSight'
+SERVER_NAME = 'sicklesight.database.windows.net'
+DATABASE_NAME = 'sickelSight01'
 TRUST = 'yes'
-VID = 'sa'
-PWD = 'user'
+VID = 'SickleSightAdmin'
+PWD = 'sicklesight@23'
 # uid = 'vid';
 # pwd = 'vid';
 connection_string = '''
