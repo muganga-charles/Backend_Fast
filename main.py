@@ -1,8 +1,8 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 # from bcrypt import hashpw, gensalt, checkpw
-from email_module import Email
-from fastapi import BackgroundTasks
+# from email_module import Email
+# from fastapi import BackgroundTasks
 import config
 from fastapi.middleware.cors import CORSMiddleware
 from py_functions import (
@@ -13,10 +13,10 @@ from py_functions import (
     DoctorLoginData,
     HospitalDoctor,
 )
-import uvicorn
+
 import py_functions
 import pyodbc
-import json
+
 
 app = FastAPI()
 origins = (["*"],)
