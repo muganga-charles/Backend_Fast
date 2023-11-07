@@ -46,9 +46,9 @@ cnxn = connect_db()
 
 @app.get("/")
 def get_data():
-    df = py_functions.fetch_data(cnxn)
-    return df.to_dict(orient="records")
-
+    data, columns = py_functions.fetch_data(cnxn)
+    # Convert list of tuples to list of dictionaries
+    return [dict(zip(columns, record)) for record in data]
 
 @app.post("/patients/new")
 async def create_patient(patient: Patient):

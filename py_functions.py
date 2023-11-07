@@ -465,8 +465,10 @@ def fetch_data(cnxn):
     query = "SELECT * FROM LabTestResults LIMIT 2"
     cursor.execute(query)
     result = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
     cursor.close()
-    return result
+    # Return both the result and the column names
+    return result, columns
 
 
 
