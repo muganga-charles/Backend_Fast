@@ -17,7 +17,6 @@ import config
 # )
 
 import py_functions
-import pyodbc
 
 app = FastAPI()
 # origins = (["*"],)
