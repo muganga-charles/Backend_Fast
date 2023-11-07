@@ -9,10 +9,7 @@ import pandas as pd
 #     query = "SELECT TOP 10* FROM PATIENTS"
 #     df = pd.read_sql(query, cnxn)
 #     return df
-def fetch_data(cnxn):
-    query = "SELECT * FROM LabTestResults LIMIT 2"
-    df = pd.read_sql(query, cnxn)
-    return df
+
 
 def fetch_patient_data(cnxn):
     query = "SELECT * FROM LabTestResults LIMIT 10;"
@@ -462,6 +459,15 @@ def add_doctor(cnxn, new_doctor):
     cnxn.commit()
     cursor.close()
     return True
+
+def fetch_data(cnxn):
+    cursor = cnxn.cursor()
+    query = "SELECT * FROM LabTestResults LIMIT 2"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
 
 
 def fetch_doctor_by_email(cnxn, email):

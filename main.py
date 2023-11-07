@@ -47,13 +47,6 @@ cnxn = connect_db()
 @app.get("/")
 def get_data():
     df = py_functions.fetch_data(cnxn)
-    
-    # Replace infinite values with None
-    df.replace([np.inf, -np.inf], None, inplace=True)
-    
-    # Convert NaN values to None
-    df = df.where(pd.notnull(df), None)
-    
     return df.to_dict(orient="records")
 
 
