@@ -3,7 +3,7 @@ import psycopg2
 from sqlalchemy import create_engine
 from fastapi.responses import JSONResponse
 from bcrypt import hashpw, gensalt, checkpw
-
+import numpy as np
 # from email_module import Email
 # from fastapi import BackgroundTasks
 import config
@@ -179,9 +179,12 @@ async def doctor_login(login_data: DoctorLoginData):
 # #         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/patient_data")
-def get_patien_data():
+def get_patient_data():
     df = py_functions.fetch_patient_data(cnxn)
+    df.replace([np.inf, -np.inf], None, inplace=True)  # Replace infinities with None
+    df = df.where(pd.notnull(df), None)  # Replace NaNs with None
     return df.to_dict(orient="records")
+
 
 if __name__ == "__main__":
     import uvicorn
