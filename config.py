@@ -2,6 +2,7 @@
 DRIVER_NAME = 'SQL Server'
 SERVER_NAME = 'sicklesight.database.windows.net'
 DATABASE_NAME = 'sickelSight01'
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 TRUST = 'yes'
 VID = 'SickleSightAdmin'
 PWD = 'sicklesight@23'
