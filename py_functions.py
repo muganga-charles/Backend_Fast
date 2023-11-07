@@ -144,6 +144,28 @@ def existing_patient(cnxn, email, referral_no):
     else:
         return False
 ## store the user in the database
+# def store_patient(cnxn, new_patient):
+#     # Assuming new_patient is a Pydantic model, convert it to a dictionary
+#     new_patient_data = new_patient.dict()
+
+#     # Create a cursor object using the connection
+#     cursor = cnxn.cursor()
+
+#     # Construct the SQL query with placeholders for parameters
+#     placeholders = ", ".join(["?"] * len(new_patient_data))
+#     columns = ", ".join(new_patient_data.keys())
+#     sql = f"INSERT INTO PATIENTS ({columns}) VALUES ({placeholders})"
+
+#     # Execute the SQL query with the provided parameters
+#     cursor.execute(sql, list(new_patient_data.values()))
+
+#     # Commit the changes to the database
+#     cnxn.commit()
+#     # Close the cursor if you are done with it
+#     cursor.close()
+
+#     return True
+
 def store_patient(cnxn, new_patient):
     # Assuming new_patient is a Pydantic model, convert it to a dictionary
     new_patient_data = new_patient.dict()
@@ -152,19 +174,28 @@ def store_patient(cnxn, new_patient):
     cursor = cnxn.cursor()
 
     # Construct the SQL query with placeholders for parameters
-    placeholders = ", ".join(["?"] * len(new_patient_data))
+    placeholders = ", ".join(["%s"] * len(new_patient_data))  # Use %s for PostgreSQL
     columns = ", ".join(new_patient_data.keys())
     sql = f"INSERT INTO PATIENTS ({columns}) VALUES ({placeholders})"
 
-    # Execute the SQL query with the provided parameters
-    cursor.execute(sql, list(new_patient_data.values()))
+    try:
+        # Execute the SQL query with the provided parameters
+        cursor.execute(sql, tuple(new_patient_data.values()))  # Pass values as a tuple
 
-    # Commit the changes to the database
-    cnxn.commit()
+        # Commit the changes to the database
+        cnxn.commit()
+    except Exception as e:
+        # Handle the error
+        print(f"An error occurred: {e}")
+        cnxn.rollback()
+        cursor.close()
+        return False
+
     # Close the cursor if you are done with it
     cursor.close()
 
     return True
+
 
 
 def store_guardian(cnxn, guardian_data):
