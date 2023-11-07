@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from sqlalchemy import create_engine
 # from fastapi.responses import JSONResponse
 # from bcrypt import hashpw, gensalt, checkpw
 # # from email_module import Email
@@ -40,6 +41,23 @@ def connect_db(password):
     cursor = cnxn.cursor()
     print("Connected to database")
     return cnxn
+
+# def connect_db(password):
+#     driver = config.DRIVER_NAME
+#     server = config.SERVER_NAME
+#     database = config.DATABASE_NAME
+#     vid = config.VID
+#     trust = config.TRUST
+#     # Construct the connection string
+#     params = urllib.parse.quote_plus(
+#         f"DRIVER={driver};SERVER={server};DATABASE={database};UID={vid};PWD={password};TrustServerCertificate={trust};"
+#     )
+    
+#     # Create the SQLAlchemy engine using the connection string
+#     engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
+
+#     print("Connected to database")
+#     return engine
 
 
 cnxn = connect_db(config.PWD)
@@ -181,6 +199,6 @@ def get_data():
 # #         raise HTTPException(status_code=400, detail=str(e))
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+# if __name__ == "__main__":
+# import uvicorn
+# uvicorn.run(app, host="127.0.0.1", port=8000)
