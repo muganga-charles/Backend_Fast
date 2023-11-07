@@ -10,7 +10,7 @@ import pandas as pd
 #     df = pd.read_sql(query, cnxn)
 #     return df
 def fetch_data(cnxn):
-    query = "SELECT * FROM PATIENTS LIMIT 10"
+    query = "SELECT * FROM LabTestResults LIMIT 10"
     df = pd.read_sql(query, cnxn)
     return df
 
