@@ -63,10 +63,10 @@ def connect_db(password):
 cnxn = connect_db(config.PWD)
 
 
-@app.get("/")
-def get_data():
-    df = py_functions.fetch_data(cnxn)
-    return df.to_dict(orient='records')
+# @app.get("/")
+# def get_data():
+#     df = py_functions.fetch_data(cnxn)
+#     return df.to_dict(orient='records')
 
 
 # @app.post("/patients/new")
