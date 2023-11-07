@@ -124,8 +124,18 @@ class Emergency(BaseModel):
 
 
 ## check if the user exists
+# def existing_patient(cnxn, email, referral_no):
+#     query = "SELECT COUNT(1) FROM PATIENTS WHERE Email = ? OR Referral_No = ?;"
+#     params = (email, referral_no)
+#     df = pd.read_sql(query, cnxn, params=params)
+
+#     if df.iloc[0, 0] > 0:
+#         return True
+#     else:
+#         return False
+
 def existing_patient(cnxn, email, referral_no):
-    query = "SELECT COUNT(1) FROM PATIENTS WHERE Email = ? OR Referral_No = ?;"
+    query = "SELECT COUNT(1) FROM PATIENTS WHERE Email = %s OR Referral_No = %s;"
     params = (email, referral_no)
     df = pd.read_sql(query, cnxn, params=params)
 
@@ -133,8 +143,6 @@ def existing_patient(cnxn, email, referral_no):
         return True
     else:
         return False
-
-
 ## store the user in the database
 def store_patient(cnxn, new_patient):
     # Assuming new_patient is a Pydantic model, convert it to a dictionary
