@@ -178,9 +178,9 @@ async def doctor_login(login_data: DoctorLoginData):
 # #     except Exception as e:
 # #         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get("/pateint_data")
+@app.get("/pateint_data/{patient_id}")
 def get_patien_data():
-    df = py_functions.fetch_patient_data(cnxn)
+    df = py_functions.fetch_patient_data(cnxn,)
     return df.to_dict(orient="records")
 
 if __name__ == "__main__":
