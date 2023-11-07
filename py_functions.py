@@ -15,7 +15,7 @@ def fetch_data(cnxn):
     return df
 
 def fetch_patient_data(cnxn):
-    query = "SELECT * FROM LabTestResults;"
+    query = "SELECT * FROM LabTestResults LIMIT 10;"
     df = pd.read_sql(query, cnxn)
     return df
 

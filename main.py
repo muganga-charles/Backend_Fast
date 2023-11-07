@@ -182,8 +182,8 @@ async def doctor_login(login_data: DoctorLoginData):
 @app.get("/patient_data")
 def get_patient_data():
     df = py_functions.fetch_patient_data(cnxn)
-    df.replace([np.inf, -np.inf], None, inplace=True)  # Replace infinities with None
-    df = df.where(pd.notnull(df), None)  # Replace NaNs with None
+    # df.replace([np.inf, -np.inf], None, inplace=True)  # Replace infinities with None
+    # df = df.where(pd.notnull(df), None)  # Replace NaNs with None
     return df.to_dict(orient="records")
 
 
