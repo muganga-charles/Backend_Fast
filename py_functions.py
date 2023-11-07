@@ -5,8 +5,12 @@ from typing import Optional
 import pandas as pd
 
 
+# def fetch_data(cnxn):
+#     query = "SELECT TOP 10* FROM PATIENTS"
+#     df = pd.read_sql(query, cnxn)
+#     return df
 def fetch_data(cnxn):
-    query = "SELECT TOP 10* FROM PATIENTS"
+    query = "SELECT * FROM PATIENTS LIMIT 10"
     df = pd.read_sql(query, cnxn)
     return df
 
