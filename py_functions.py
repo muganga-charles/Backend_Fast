@@ -462,7 +462,7 @@ def add_doctor(cnxn, new_doctor):
 
 def fetch_data(cnxn):
     cursor = cnxn.cursor()
-    query = "SELECT * FROM LabTestResults LIMIT 2"
+    query = "SELECT * FROM LabTestResults"
     cursor.execute(query)
     result = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]
