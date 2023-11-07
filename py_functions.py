@@ -16,7 +16,7 @@ def fetch_data(cnxn):
 
 def fetch_patient_data(cnxn):
     query = "SELECT * FROM LabTestResults;"
-    df = pd.read_sql(query, cnxn, params=(id,))
+    df = pd.read_sql(query, cnxn)
     return df
 # Defining Pydantic models for the request body
 class Patient(BaseModel):
