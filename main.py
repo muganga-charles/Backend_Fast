@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+import psycopg2
 from sqlalchemy import create_engine
 # from fastapi.responses import JSONResponse
 # from bcrypt import hashpw, gensalt, checkpw
@@ -25,22 +26,42 @@ app = FastAPI()
 # )
 
 
-def connect_db(password):
-    driver = config.DRIVER_NAME
+# def connect_db(password):
+#     driver = config.DRIVER_NAME
+#     server = config.SERVER_NAME
+#     database = config.DATABASE_NAME
+#     # vid = config.VID
+#     pwd = password
+#     vid = config.VID
+#     trust = config.TRUST
+#     con_string = (
+#         f"DRIVER={driver};SERVER={server};DATABASE={database};UID={vid};PWD={pwd};"
+#     )
+#     cnxn = pyodbc.connect(con_string)
+#     cnxn.autocommit = True
+#     cursor = cnxn.cursor()
+#     print("Connected to database")
+#     return cnxn
+
+def connect_db():
     server = config.SERVER_NAME
     database = config.DATABASE_NAME
-    # vid = config.VID
-    pwd = password
-    vid = config.VID
-    trust = config.TRUST
-    con_string = (
-        f"DRIVER={driver};SERVER={server};DATABASE={database};UID={vid};PWD={pwd};"
-    )
-    cnxn = pyodbc.connect(con_string)
+    user = config.USER
+    password = config.PASSWORD
+
+    # Create the connection string for psycopg2
+    # con_string = f"dbname='{database}' user='{user}' host='{server}' password='{password}'"
+    # con_string = f"dbname='{database}' user='{user}' host='{server}' password='{password}' port='5432' sslmode='false'"
+    # con_string = f"dbname='{database}' user='SickleSightAdmin@sicklesightserver' host='sicklesightserver.postgres.database.azure.com' password='{password}' port='5432' sslmode='true'"
+    con_string = f"dbname='{database}' user='{user}' host='{server}' password='{password}' sslmode='require'"
+
+    cnxn = psycopg2.connect(con_string)
     cnxn.autocommit = True
     cursor = cnxn.cursor()
     print("Connected to database")
     return cnxn
+
+cnxn = connect_db()
 
 # def connect_db(password):
 #     driver = config.DRIVER_NAME
@@ -60,7 +81,7 @@ def connect_db(password):
 #     return engine
 
 
-cnxn = connect_db(config.PWD)
+# cnxn = connect_db(config.PWD)
 
 
 # @app.get("/")
@@ -199,6 +220,6 @@ cnxn = connect_db(config.PWD)
 # #         raise HTTPException(status_code=400, detail=str(e))
 
 
-# if __name__ == "__main__":
-# import uvicorn
-# uvicorn.run(app, host="127.0.0.1", port=8000)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

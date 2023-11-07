@@ -1,24 +1,7 @@
-# import pypyodbc
-DRIVER_NAME = 'SQL Server'
-SERVER_NAME = 'sicklesight.database.windows.net'
-DATABASE_NAME = 'sickelSight01'
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-TRUST = 'yes'
-VID = 'SickleSightAdmin'
-PWD = 'sicklesight@23'
-# uid = 'vid';
-# pwd = 'vid';
-connection_string = '''
-    DRIVER={{{DRIVER_NAME}}};
-    SERVER={{{SERVER_NAME}}};
-    DATABASE={DATABASE_NAME};
-    Trusted_Connection=yes;
-    '''
-# .format(
-#     driver_name=DRIVER_NAME,
-#     server_name=SERVER_NAME,
-#     database_name=DATABASE_NAME
-#)
 
-# connection = pypyodbc.connect(connection_string)
-# print(connection)
+DRIVER_NAME = 'PostgreSQL'  # This is usually not needed for psycopg2
+SERVER_NAME = 'sicklesightserver.postgres.database.azure.com'  # Replace with your server name
+# DATABASE_NAME = 'Sickelsight01'
+DATABASE_NAME = 'sicklesight'  # Replace with your database name
+USER = 'SickleSightAdmin@sicklesightserver'  # Replace with your database username
+PASSWORD = 'SickleSight@23'  # Replace with your database password
