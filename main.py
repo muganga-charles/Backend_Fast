@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import psycopg2
+import pandas as pd
 from sqlalchemy import create_engine
 from fastapi.responses import JSONResponse
 from bcrypt import hashpw, gensalt, checkpw
