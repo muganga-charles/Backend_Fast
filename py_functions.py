@@ -1,9 +1,18 @@
+import argon2
 from pydantic import BaseModel, EmailStr, validator
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends import default_backend
+from base64 import urlsafe_b64encode, urlsafe_b64decode
+from os import urandom
 
 # from bcrypt import checkpw
 from typing import Optional
 import pandas as pd
+from argon2 import PasswordHasher
 
+# Creating an instance of PasswordHasher
+ph = PasswordHasher()
 
 # def fetch_data(cnxn):
 #     query = "SELECT TOP 10* FROM PATIENTS"
@@ -15,6 +24,7 @@ def fetch_patient_data(cnxn):
     query = "SELECT * FROM LabTestResults LIMIT 10;"
     df = pd.read_sql(query, cnxn)
     return df
+
 
 # Defining Pydantic models for the request body
 class Patient(BaseModel):
@@ -81,7 +91,26 @@ class Doctor(BaseModel):
             raise ValueError('Status must be "Online" or "Offline"')
         return value
 
-    # Password: str
+
+def hash_password(password):
+    # Hashes the password
+    return ph.hash(password)
+
+
+def verify_password(hash, password):
+    try:
+        # Verifies the password against the hash
+        ph.verify(hash, password)
+        # If password is correct, it will return True
+        # If password is incorrect, it will raise an exception
+        return ph.check_needs_rehash(hash) == False
+    except argon2.exceptions.VerifyMismatchError:
+        # If the verification fails because the password is incorrect
+        return False
+    except argon2.exceptions.InvalidHashError:
+        # If the verification fails because the hash is not a valid Argon2 hash
+        # Log this error or handle it as needed
+        return False
 
 
 class HospitalDoctor(BaseModel):
@@ -460,6 +489,7 @@ def add_doctor(cnxn, new_doctor):
     cursor.close()
     return True
 
+
 def fetch_data(cnxn):
     cursor = cnxn.cursor()
     query = "SELECT * FROM LabTestResults"
@@ -469,7 +499,6 @@ def fetch_data(cnxn):
     cursor.close()
     # Return both the result and the column names
     return result, columns
-
 
 
 def fetch_doctor_by_email(cnxn, email):
