@@ -3,7 +3,8 @@ import psycopg2
 import pandas as pd
 from sqlalchemy import create_engine
 from fastapi.responses import JSONResponse
-from bcrypt import hashpw, gensalt, checkpw
+import bcrypt
+# from bcrypt import hashpw, gensalt, checkpw
 import numpy as np
 # from email_module import Email
 # from fastapi import BackgroundTasks
@@ -67,8 +68,8 @@ async def create_patient(patient: Patient):
     if existing_client:
         raise HTTPException(status_code=400, detail="User already exists.")
 
-    salt_rounds = 12
-    hashed_password = hashpw(patient.password.encode("utf-8"), gensalt(salt_rounds))
+    # salt_rounds = 12
+    hashed_password = bcrypt.hashpw(patient.password.encode("utf-8"), bcrypt.gensalt())
     # hashed_password = ""
     # Create a new patient with the hashed password
     patient.password = hashed_password
@@ -96,9 +97,7 @@ async def login(login_data: LoginData):
     # print(patient['password'])
     # If the patient doesn't exist or passwords don't match, return an error
     # if not patient(
-    if not patient or not checkpw(
-        login_data.password.encode("utf-8"), patient["password"].encode("utf-8")
-    ):
+    if not patient or not bcrypt.checkpw(login_data.password.encode('utf-8'), patient['password'].encode('utf-8')):
         raise HTTPException(status_code=401, detail="Invalid email or password.")
 
     # If everything is okay, return a success message
